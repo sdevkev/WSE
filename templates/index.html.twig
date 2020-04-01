@@ -1,0 +1,175 @@
+
+{% include 'header.html'%}
+
+<body>
+
+<!- ===============================login page========================================= -->
+<div data-role="page" id="login">
+
+	<div data-role="header">
+		<h1>Welcome</h1>
+	</div><!-- /header -->
+
+                    <!-- main login fields -->
+	<div role="main" class="ui-content">
+	
+	    Username<input type="text" id="loginUsername" require ="true"></input>
+        Password<input type="password" id="loginPassword"></input>
+		<button class="ui-btn" id ="loginbtn">Login</button>
+		<p>No Account?<a href = #register>Sign Up</a></p>
+		
+	</div>
+
+</div><!-- /page login -->
+
+<script>
+$( "#loginbtn" ).click(function() {
+  
+
+	var un = $("#loginUsername").val();
+	var pw = $("#loginPassword").val();
+	
+	
+	$.post("/login", {username:un, password:pw})
+	.done(function(data) {
+
+	if(data == 'customer')
+	{
+		window.location="/index#customer";
+	}
+	else if(data == 'driver')
+	{
+		window.location="/index#driver";
+	}
+	else if(data == 'manager')
+	{
+		window.location="/index#manager";
+	}
+	else
+	{
+		alert(data);
+	}
+	
+	});
+	
+
+		
+
+});
+
+</script>
+
+
+<!- ============================end login page========================================= -->
+
+
+<!- ===============================register page========================================= -->
+<div data-role="page" id="register">
+
+<div data-role="header">
+		<h1>Register</h1>
+	</div><!-- /header -->
+
+<div role="main" class="ui-content">
+
+			Username <input type="text" name="username" id="username" value="">
+			Password <input type="password" name="pass" id="pass" value="">
+			Account Type<select name="select-native-1" id="acct">
+	        	<option value="customer">Customer</option>
+	        	<option value="manager">Manager</option>
+	        	<option value="driver">Driver</option>
+	    	</select>
+			<button class="ui-btn" id="Registerbtn">Submit</button>
+
+	</div><!-- /content -->
+</div>
+  
+<script>
+
+
+$( "#Registerbtn" ).click(function() {
+  
+  
+	//checks that both fields have data before calling post
+	if($( "#username" ).val() =="" || $( "#pass" ).val() =="" )
+	{
+		alert("please fill in all details");
+	}
+	else
+	{
+		var usernamein = $( "#username" ).val();
+		var passwordin = $( "#pass" ).val();
+		var acctypein = $( "#acct" ) .val();
+		
+		$.post("/register", {username:usernamein, password:passwordin, acctype:acctypein})
+		.done(function(data) {
+			alert("Data Loaded: " + data);
+			});
+	
+	}
+
+});
+
+</script>
+
+<!- ===============================end register page========================================= -->
+
+
+<!- ===============================customer page========================================= -->
+<div data-role="page" id="customer">
+
+<div data-role="header">
+		<h1>Customer</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+
+	</div><!-- /content -->
+</div>
+  
+<script>
+
+</script>
+
+<!- ===============================end customer page========================================= -->
+
+
+<!- ===============================driver page========================================= -->
+<div data-role="page" id="driver">
+
+<div data-role="header">
+		<h1>Driver</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+
+	</div><!-- /content -->
+</div>
+  
+<script>
+
+</script>
+
+<!- ===============================end driver page========================================= -->
+
+
+<!- ===============================manager page========================================= -->
+<div data-role="page" id="manager">
+
+<div data-role="header">
+		<h1>Manger</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+
+	</div><!-- /content -->
+</div>
+  
+<script>
+
+</script>
+
+<!- ===============================end manager page========================================= -->
+
+</body>
+</html>
