@@ -3,7 +3,7 @@
 
 <body>
 
-<!- ===============================login page========================================= -->
+<!-- ===============================login page========================================= -->
 <div data-role="page" id="login">
 
 	<div data-role="header">
@@ -15,8 +15,8 @@
 	
 	    Username<input type="text" id="loginUsername" require ="true"></input>
         Password<input type="password" id="loginPassword"></input>
-		<button class="ui-btn" id ="loginbtn">Login</button>
-		<p>No Account?<a href = #register>Sign Up</a></p>
+		<button class="ui-btn ui-btn-inline" id ="loginbtn">Login</button> <!--inline to show sign up link on same line-->
+		No Account?<a href = #register>Sign Up</a>
 		
 	</div>
 
@@ -60,10 +60,10 @@ $( "#loginbtn" ).click(function() {
 </script>
 
 
-<!- ============================end login page========================================= -->
+<!-- ============================end login page========================================= -->
 
 
-<!- ===============================register page========================================= -->
+<!-- ===============================register page========================================= -->
 <div data-role="page" id="register">
 
 <div data-role="header">
@@ -112,10 +112,10 @@ $( "#Registerbtn" ).click(function() {
 
 </script>
 
-<!- ===============================end register page========================================= -->
+<!-- ===============================end register page========================================= -->
 
 
-<!- ===============================customer page========================================= -->
+<!-- ===============================customer page========================================= -->
 <div data-role="page" id="customer">
 
 <div data-role="header">
@@ -123,6 +123,8 @@ $( "#Registerbtn" ).click(function() {
 	</div><!-- /header -->
 
 	<div role="main" class="ui-content">
+		<a href="#OrderPage" class="ui-btn ui-shadow">New Order</a>
+		<a href="#OrderHistory" class="ui-btn ui-shadow">Order History</a>
 
 	</div><!-- /content -->
 </div>
@@ -131,10 +133,155 @@ $( "#Registerbtn" ).click(function() {
 
 </script>
 
-<!- ===============================end customer page========================================= -->
+<!-- ===============================end customer page========================================= -->
+
+<!-- ===============================customer page========================================= -->
+<div data-role="page" id="OrderPage">
+
+<div data-role="header">
+		<h1>Order</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+
+		<h2>Donuts €1</h2>
+		Plain
+		<Button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-plus ui-btn-icon-notext ui-btn-b ui-mini" id="addPlain"></Button>
+		<Button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-minus ui-btn-icon-notext ui-btn-b ui-mini" id ="minPlain"></Button>
+		<input type="text" name="textinput-2" id="plainTotal" placeholder="0" value="">
 
 
-<!- ===============================driver page========================================= -->
+		Choc
+		<Button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-plus ui-btn-icon-notext ui-btn-b ui-mini" id="addChoc"></Button>
+		<Button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-minus ui-btn-icon-notext ui-btn-b ui-mini" id ="minChoc"></Button>
+		<input type="text" name="textinput-2" id="chocTotal" placeholder="0" value="">
+		<a href="#cart" class="ui-btn" id="OrderSubmitbtn">Submit</a>
+
+
+	</div><!-- /content -->
+</div>
+  
+<script>
+
+var cartContents = "";
+var totalCost = 0;
+
+var chocQty = 0;
+var plainQty = 0;
+var LemonQty = 0;
+
+var SprinkleQty = 0;
+var JamQty = 0;
+var icedQty = 0;
+
+var FantaQty = 0;
+var SpriteQty = 0;
+
+
+// adds 1 to to plain total
+$( "#addPlain" ).click(function() 
+{
+	 plainQty = plainQty + 1;
+	 $( "#plainTotal" ) .val(plainQty);
+	 totalCost = totalCost + 1;
+
+});
+
+
+// takes away 1 from total ( wont go into minus numbers)
+$( "#minPlain" ).click(function() 
+{
+	if($("#plainTotal").val() >0) // checks to see if current value is positive
+	{
+	 	plainQty = plainQty - 1;
+	 	$( "#plainTotal" ) .val(plainQty);
+	 	totalCost = totalCost - 1;
+	}
+
+});
+
+
+// adds 1 to to plain total
+$( "#addChoc" ).click(function() 
+{
+	 chocQty = chocQty + 1;
+	 $( "#chocTotal" ) .val(chocQty);
+	 totalCost = totalCost + 1;
+
+});
+
+
+// takes away 1 from total ( wont go into minus numbers)
+$( "#minChoc" ).click(function() 
+{
+	if($("#chocTotal").val() >0) // checks to see if current value is positive
+	{
+	 	plainQty = plainQty - 1;
+	 	$( "#chocTotal" ) .val(chocQty);
+	 	totalCost = totalCost - 1;
+	}
+
+});
+
+
+
+
+// takes away 1 from total ( wont go into minus numbers)
+$( "#OrderSubmitbtn" ).click(function() 
+{
+	if(plainQty >0)
+	{
+	 cartContents = cartContents + "Plain " + plainQty + "\n";
+	}
+
+	if(chocQty >0)
+	{
+	 cartContents = cartContents + "Choc " + chocQty + "\n";
+	}
+
+	cartContents = cartContents + "Total: " + totalCost;
+	$( "#Totalcart" ) .val(cartContents);
+
+		
+	//$.post("/logOrder", {order:cartContents, cost:totalCost})
+		//.done(function(data) {
+		//	alert("Data Loaded: " + data);
+			//});
+});
+
+
+
+
+</script>
+
+<!-- ===============================end customer page========================================= -->
+
+
+<!-- ===============================cart page========================================= -->
+<div data-role="page" id="cart">
+
+<div data-role="header">
+		<h1>Driver</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+
+		<textarea disabled="disabled" cols="40" rows="8" name="textarea-10" id="Totalcart"></textarea>
+
+
+
+	</div><!-- /content -->
+</div>
+  
+<script>
+
+</script>
+
+<!-- ===============================end cart page========================================= -->
+
+
+
+<!-- ===============================driver page========================================= -->
 <div data-role="page" id="driver">
 
 <div data-role="header">
@@ -150,10 +297,10 @@ $( "#Registerbtn" ).click(function() {
 
 </script>
 
-<!- ===============================end driver page========================================= -->
+<!-- ===============================end driver page========================================= -->
 
 
-<!- ===============================manager page========================================= -->
+<!-- ===============================manager page========================================= -->
 <div data-role="page" id="manager">
 
 <div data-role="header">
@@ -169,7 +316,7 @@ $( "#Registerbtn" ).click(function() {
 
 </script>
 
-<!- ===============================end manager page========================================= -->
+<!-- ===============================end manager page========================================= -->
 
 </body>
 </html>
