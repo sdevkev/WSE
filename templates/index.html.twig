@@ -13,7 +13,7 @@
                     <!-- main login fields -->
 	<div role="main" class="ui-content">
 	
-	    Username<input type="text" id="loginUsername" require ="true"></input>
+	    Username<input type="text" id="loginUsername"></input>
         Password<input type="password" id="loginPassword"></input>
 		<button class="ui-btn ui-btn-inline" id ="loginbtn">Login</button> <!--inline to show sign up link on same line-->
 		No Account?<a href = #register>Sign Up</a>
@@ -144,18 +144,77 @@ $( "#Registerbtn" ).click(function() {
 
 	<div role="main" class="ui-content">
 
-		<h2>Donuts €1</h2>
-		Plain
-		<Button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-plus ui-btn-icon-notext ui-btn-b ui-mini" id="addPlain"></Button>
-		<Button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-minus ui-btn-icon-notext ui-btn-b ui-mini" id ="minPlain"></Button>
-		<input type="text" name="textinput-2" id="plainTotal" placeholder="0" value="">
+<table data-role="table" id="movie-table-custom" data-mode="reflow" class="movie-list ui-responsive">
+  <thead>
+    <tr>
+      <th>Donut</th>
+      <th>Price</th>
+      <th>QTY</th>
+      <th>Add</th>
+      <th>Remove</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Plain</th>
+      <td>€1</td>
+      <td><input class="textbox"type="text" id="plainTotal" placeholder="0" value=""></td>
+      <td><Button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-plus ui-btn-icon-notext ui-btn-b ui-mini" id="addPlain"></Button></td>
+      <td><Button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-minus ui-btn-icon-notext ui-btn-b ui-mini" id ="minPlain"></Button></td>
+    </tr>
+    <tr>
+      <th>Chocolate</th>
+      <td>€1</td>
+      <td><input type="text" name="textinput" id="chocTotal" placeholder="0" value=""></td>
+      <td><Button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-plus ui-btn-icon-notext ui-btn-b ui-mini" id="addChoc"></Button></td>
+      <td><Button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-minus ui-btn-icon-notext ui-btn-b ui-mini" id ="minChoc"></Button></td>
+    </tr>
+    <tr>
+      <th>Lemon</th>
+      <td>€1</td>
+      <td><input type="text" name="textinput" id="lemonTotal" placeholder="0" value=""></td>
+      <td><Button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-plus ui-btn-icon-notext ui-btn-b ui-mini" id="addLemon"></Button></td>
+      <td><Button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-minus ui-btn-icon-notext ui-btn-b ui-mini" id ="minLemon"></Button></td>
+    </tr>
+     <tr>
+      <th>Sprinkle</th>
+      <td>€2</td>
+      <td><input type="text" name="textinput" id="sprinkleTotal" placeholder="0" value=""></td>
+      <td><Button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-plus ui-btn-icon-notext ui-btn-b ui-mini" id="addSprinkle"></Button></td>
+      <td><Button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-minus ui-btn-icon-notext ui-btn-b ui-mini" id ="minSprinkle"></Button></td>
+    </tr>
+    <tr>
+      <th>Jam</th>
+      <td>€2</td>
+      <td><input type="text" name="textinput" id="jamTotal" placeholder="0" value=""></td>
+      <td><Button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-plus ui-btn-icon-notext ui-btn-b ui-mini" id="addJam"></Button></td>
+      <td><Button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-minus ui-btn-icon-notext ui-btn-b ui-mini" id ="minJam"></Button></td>
+    </tr>
+    <tr>
+      <th>Iced</th>
+      <td>€2</td>
+      <td><input type="text" name="textinput" id="icedTotal" placeholder="0" value=""></td>
+      <td><Button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-plus ui-btn-icon-notext ui-btn-b ui-mini" id="addIced"></Button></td>
+      <td><Button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-minus ui-btn-icon-notext ui-btn-b ui-mini" id ="minIced"></Button></td>
+    </tr>
+    <tr>
+      <th>Fanta</th>
+      <td>€1</td>
+      <td><input type="text" name="textinput" id="fantaTotal" placeholder="0" value=""></td>
+      <td><Button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-plus ui-btn-icon-notext ui-btn-b ui-mini" id="addFanta"></Button></td>
+      <td><Button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-minus ui-btn-icon-notext ui-btn-b ui-mini" id ="minFanta"></Button></td>
+    </tr>
+    <tr>
+      <th>Sprite</th>
+      <td>€1</td>
+      <td><input type="text" name="textinput" id="spriteTotal" placeholder="0" value=""></td>
+      <td><Button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-plus ui-btn-icon-notext ui-btn-b ui-mini" id="addSprite"></Button></td>
+      <td><Button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-minus ui-btn-icon-notext ui-btn-b ui-mini" id ="minSprite"></Button></td>
+    </tr>
+  </tbody>
+</table>
+		<a href="#cart" name = "button" class="ui-btn" id="OrderSubmitbtn">Submit</a>
 
-
-		Choc
-		<Button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-plus ui-btn-icon-notext ui-btn-b ui-mini" id="addChoc"></Button>
-		<Button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-minus ui-btn-icon-notext ui-btn-b ui-mini" id ="minChoc"></Button>
-		<input type="text" name="textinput-2" id="chocTotal" placeholder="0" value="">
-		<a href="#cart" class="ui-btn" id="OrderSubmitbtn">Submit</a>
 
 
 	</div><!-- /content -->
@@ -163,40 +222,55 @@ $( "#Registerbtn" ).click(function() {
   
 <script>
 
+
 var cartContents = "";
 var totalCost = 0;
 
 var chocQty = 0;
 var plainQty = 0;
-var LemonQty = 0;
+var lemonQty = 0;
 
-var SprinkleQty = 0;
-var JamQty = 0;
+var sprinkleQty = 0;
+var jamQty = 0;
+
 var icedQty = 0;
+var fantaQty = 0;
+var spriteQty = 0;
 
-var FantaQty = 0;
-var SpriteQty = 0;
+function addItem(qty, elementID, cost)
+{
+
+	qty = qty +1;
+	$(elementID).val(qty);
+	totalCost = totalCost + cost;
+}
+
+function removeItem(qty, elementID, cost)
+{
+
+	if(qty > 0)
+	{
+		qty = qty -1;
+		$(elementID).val(qty);
+		totalCost = totalCost - cost;
+	}
+}
 
 
 // adds 1 to to plain total
 $( "#addPlain" ).click(function() 
 {
-	 plainQty = plainQty + 1;
-	 $( "#plainTotal" ) .val(plainQty);
-	 totalCost = totalCost + 1;
-
+	addItem(plainQty, "#plainTotal", 1);
+	plainQty++;
 });
 
 
 // takes away 1 from total ( wont go into minus numbers)
 $( "#minPlain" ).click(function() 
 {
-	if($("#plainTotal").val() >0) // checks to see if current value is positive
-	{
-	 	plainQty = plainQty - 1;
-	 	$( "#plainTotal" ) .val(plainQty);
-	 	totalCost = totalCost - 1;
-	}
+	removeItem(plainQty, "#plainTotal", 1);
+	if(plainQty>0)
+	plainQty--;
 
 });
 
@@ -204,24 +278,120 @@ $( "#minPlain" ).click(function()
 // adds 1 to to plain total
 $( "#addChoc" ).click(function() 
 {
-	 chocQty = chocQty + 1;
-	 $( "#chocTotal" ) .val(chocQty);
-	 totalCost = totalCost + 1;
-
+	addItem(chocQty, "#chocTotal", 1);
+	chocQty++;
 });
 
 
 // takes away 1 from total ( wont go into minus numbers)
 $( "#minChoc" ).click(function() 
 {
-	if($("#chocTotal").val() >0) // checks to see if current value is positive
-	{
-	 	plainQty = plainQty - 1;
-	 	$( "#chocTotal" ) .val(chocQty);
-	 	totalCost = totalCost - 1;
-	}
-
+	removeItem(chocQty, "#chocTotal", 1);
+	if(chocQty>0)
+	chocQty--;
 });
+
+// adds 1 to to Lemon total
+$( "#addLemon" ).click(function() 
+{
+	addItem(lemonQty, "#lemonTotal", 1);
+	lemonQty++;
+});
+
+
+// takes away 1 from total ( wont go into minus numbers)
+$( "#minLemon" ).click(function() 
+{
+	removeItem(lemonQty, "#lemonTotal", 1);
+	if(lemonQty>0)
+	lemonQty--;
+});
+
+
+// adds 1 to to plain total
+$( "#addSprinkle" ).click(function() 
+{
+	addItem(sprinkleQty, "#sprinkleTotal", 2);
+	sprinkleQty++;
+});
+
+
+// takes away 1 from total ( wont go into minus numbers)
+$( "#minSprinkle" ).click(function() 
+{
+	removeItem(sprinkleQty, "#sprinkleTotal", 2);
+	if(sprinkleQty>0)
+	sprinkleQty--;
+});
+
+
+// adds 1 to to plain total
+$( "#addJam" ).click(function() 
+{
+	addItem(jamQty, "#jamTotal", 2);
+	jamQty++;
+});
+
+
+// takes away 1 from total ( wont go into minus numbers)
+$( "#minJam" ).click(function() 
+{
+	removeItem(jamQty, "#jamTotal", 1);
+	if(jamQty>0)
+	jamQty--;
+});
+
+
+// adds 1 to to plain total
+$( "#addIced" ).click(function() 
+{
+	addItem(icedQty, "#icedTotal", 2);
+	icedQty++;
+});
+
+
+// takes away 1 from total ( wont go into minus numbers)
+$( "#minIced" ).click(function() 
+{
+	removeItem(icedQty, "#icedTotal", 2);
+	if(icedQty>0)
+	icedQty--;
+});
+
+
+// adds 1 to to plain total
+$( "#addFanta" ).click(function() 
+{
+	addItem(fantaQty, "#fantaTotal", 1);
+	fantaQty++;
+});
+
+
+// takes away 1 from total ( wont go into minus numbers)
+$( "#minFanta" ).click(function() 
+{
+	removeItem(fantaQty, "#fantaTotal", 1);
+	if(fantaQty>0)
+	fantaQty--;
+});
+
+
+// adds 1 to to plain total
+$( "#addSprite" ).click(function() 
+{
+	addItem(spriteQty, "#spriteTotal", 1);
+	spriteQty++;
+});
+
+
+// takes away 1 from total ( wont go into minus numbers)
+$( "#minSprite" ).click(function() 
+{
+	removeItem(spriteQty, "#spriteTotal", 1);
+	if(spriteQty>0)
+	spriteQty--;
+});
+
 
 
 
@@ -231,22 +401,45 @@ $( "#OrderSubmitbtn" ).click(function()
 {
 	if(plainQty >0)
 	{
-	 cartContents = cartContents + "Plain " + plainQty + "\n";
+	 cartContents = cartContents + "Plain X " + plainQty + "\n";
 	}
 
 	if(chocQty >0)
 	{
-	 cartContents = cartContents + "Choc " + chocQty + "\n";
+	 cartContents = cartContents + "Chocolate X " + chocQty + "\n";
 	}
 
-	cartContents = cartContents + "Total: " + totalCost;
+	if(lemonQty >0)
+	{
+	 cartContents = cartContents + "Lemon X " + lemonQty + "\n";
+	}
+	if(sprinkleQty >0)
+	{
+	 cartContents = cartContents + "Sprinkle X " + sprinkleQty + "\n";
+	}
+	if(jamQty >0)
+	{
+	 cartContents = cartContents + "Jam X " + jamQty + "\n";
+	}
+	if(icedQty >0)
+	{
+	 cartContents = cartContents + "Iced X " + icedQty + "\n";
+	}
+	if(fantaQty >0)
+	{
+	 cartContents = cartContents + "Fanta X " + fantaQty + "\n";
+	}
+	if(spriteQty >0)
+	{
+	 cartContents = cartContents + "Spite X " + spriteQty + "\n";
+	}
+
+
+	cartContents = cartContents + "Total Price: €" + totalCost;
 	$( "#Totalcart" ) .val(cartContents);
 
 		
-	//$.post("/logOrder", {order:cartContents, cost:totalCost})
-		//.done(function(data) {
-		//	alert("Data Loaded: " + data);
-			//});
+
 });
 
 
@@ -261,12 +454,20 @@ $( "#OrderSubmitbtn" ).click(function()
 <div data-role="page" id="cart">
 
 <div data-role="header">
-		<h1>Driver</h1>
+		<h1>Checkout</h1>
 	</div><!-- /header -->
 
 	<div role="main" class="ui-content">
 
 		<textarea disabled="disabled" cols="40" rows="8" name="textarea-10" id="Totalcart"></textarea>
+
+		<label for="nameInput">Name</label>
+		<input type="text" name="nameInput" id="nameInput" placeholder="" value="">
+		<label for="nameInput">Address</label>
+		<input type="text" name="addressInput" id="addressInput" placeholder="" value="">
+		<label for="instructionsInput">Speical Instructions</label>
+		<textarea cols="40" rows="8" name="textarea-10" id="textarea-10"></textarea>
+		<a href="" name = "button" class="ui-btn" id="checkoutBtn">Confirm Order</a>
 
 
 
@@ -274,6 +475,17 @@ $( "#OrderSubmitbtn" ).click(function()
 </div>
   
 <script>
+
+var address = $("addressInput").val();
+
+$( "#checkoutBtn" ).click(function() 
+{
+		$.post("/logOrder", {order:cartContents, cost:totalCost, add:address})
+		.done(function(data) {
+			alert("Data Loaded: " + data);
+			});
+
+});
 
 </script>
 

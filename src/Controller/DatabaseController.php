@@ -100,4 +100,24 @@ class DatabaseController extends AbstractController
 		//pass back control to twig script tags and store message in data
 		return new Response('please try a different username');
 	}
+	
+	
+		/**
+	* @Route("/logOrder") methods("GET", "POST");
+	*/
+	public function logOrder()
+	{
+		$request = Request::createFromGlobals();
+		
+		//get the variables passed in to the HTML Register page
+		$cart = $request->request->get('order', 'none');
+		$cost = $request->request->get('totalCost', 'none');
+		$addr = $request->request->get('address', 'none');
+		$date = date("Y/m/d");
+		$status = "waiting";
+		
+		
+		
+		return new Response($cart . $cost . $addr . $date . $status );
+	}
 }
