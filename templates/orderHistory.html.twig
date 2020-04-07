@@ -1,0 +1,13 @@
+<tr>
+	<th>Order ID</th>
+	<th>Order Details</th>
+	<th>Order On</th>
+</tr>
+{% for order in orders %}
+<tr>
+     <td>{{ order.id }}</td>
+     <td>{{ order.OrderDetails }}</td>
+     <td>{{ order.date }}</td>
+ </tr>
+    {% endfor %}
+

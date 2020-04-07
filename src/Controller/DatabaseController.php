@@ -8,6 +8,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\LoginRegister;
+use App\Entity\Orders;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -102,7 +103,7 @@ class DatabaseController extends AbstractController
 	}
 	
 	
-		/**
+	/**
 	* @Route("/logOrder") methods("GET", "POST");
 	*/
 	public function logOrder()
@@ -110,14 +111,58 @@ class DatabaseController extends AbstractController
 		$request = Request::createFromGlobals();
 		
 		//get the variables passed in to the HTML Register page
+		$user = $request->request->get('username', 'none');
 		$cart = $request->request->get('order', 'none');
-		$cost = $request->request->get('totalCost', 'none');
-		$addr = $request->request->get('address', 'none');
+		$cost = $request->request->get('cost', 'none');
+		$addr = $request->request->get('add', 'none');
 		$date = date("Y/m/d");
 		$status = "waiting";
 		
 		
+		$entityManager = $this->getDoctrine()->getManager();
 		
-		return new Response($cart . $cost . $addr . $date . $status );
+		//create a $Orders object to use the entities methods
+		$Orders = new Orders();
+		
+		$Orders->setOrderDetails($cart);
+		$Orders->setCost((float)$cost);
+		$Orders->setDeliveryAddress($addr);
+		$Orders->setDate(date("Y/m/d"));
+		$Orders->setStatus($status);
+		$Orders->setUsername("user");
+		
+		
+		//prepare data to be used
+		$entityManager->persist($Orders);
+		
+		
+		//execute the SQL to update DB using data from LoginRegister persist
+		$entityManager->flush();	
+		
+		
+		return new Response($cart . $cost . $addr . $date . $status . $user );
 	}
+	
+	
+	/**
+	* @Route("/orderHistory") methods("GET", "POST");
+	*/
+		public function orderHistory()
+	{
+		// store data from webpage request
+		$request = Request::createFromGlobals();
+		
+		//get the variables passed in to the HTML login page
+		$username = $request->request->get('user', 'none');
+		
+		//create a repository object and pass in the LoginRegister entity 
+		$repo = $this->getDoctrine()->getRepository(Orders::class);
+		
+		//checks if there is a match in the database for specified Username
+		$orders = $repo->findBy(['username' => "user"]);
+
+		return $this->render("orderHistory.html.twig", ['orders' => $orders]);
+		
+	}
+	
 }
