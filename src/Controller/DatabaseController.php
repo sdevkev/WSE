@@ -165,4 +165,58 @@ class DatabaseController extends AbstractController
 		
 	}
 	
+		/**
+	* @Route("/activeDeliveries") methods("GET", "POST");
+	*/
+		public function activeDeliveries()
+	{
+		
+		
+		//create a repository object and pass in the LoginRegister entity 
+		$repo = $this->getDoctrine()->getRepository(Orders::class);
+		
+		//checks if there is a match in the database for specified Username
+		$orders = $repo->findBy(['status' => "waiting"]);
+
+		return $this->render("awaitingDelivery.html.twig", ['orders' => $orders]);
+		
+	}
+	
+	
+		/**
+	* @Route("/completeOrder") methods("GET", "POST");
+	*/
+	public function completeOrder()
+	{
+		$request = Request::createFromGlobals();
+		
+		//get the variables passed in to the HTML Register page
+		$orderid = $request->request->get('completeorder', 'none');
+
+		
+		// insert into DB using Doctrine Entities 
+		// create a Doctrine entity mangager
+		$entityManager = $this->getDoctrine()->getManager();
+		
+		
+		//create a repository object and pass in the LoginRegister entity 
+		$repo = $this->getDoctrine()->getRepository(Orders::class);
+		
+		//checks if there is a match in the database for specified order id
+		$order = $repo->findOneBy(['id' => $orderid]);
+		
+		// set the status field to complete 
+		$order->setStatus("complete");
+		
+		//prepare data to be used
+		$entityManager->persist($order);
+		
+		
+		//execute the SQL
+		$entityManager->flush();	
+		
+	   return new Response("order completed" );
+		
+	}
+	
 }
