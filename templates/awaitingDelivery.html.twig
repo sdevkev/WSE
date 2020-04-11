@@ -25,8 +25,14 @@
 
     	$.post("/completeOrder", {completeorder:idToComplete})
 		.done(function(data) {
-			alert("Data Loaded: " + data);
 			});
+
+			// recall the active delivers controller
+			$.post("/activeDeliveries")
+			.done(function(data)
+			{
+				$('#showActiveDeliveries').append(data); // inserts the html generated in twig file showActiveDeliveries.twig in table in #driver page
+	 		}); 
 
     });
 

@@ -144,16 +144,6 @@ $( "#Registerbtn" ).click(function() {
   
 <script>
 
-$("#history").click(function(){
-
-	$.post("/orderHistory")
-	.done(function(data)
-	{
-		$('#showHistoryTable').append(data); // inserts the html generated in twig file orderHistory.twig in div in #history page
-	 });
-
-	});
-
 
 </script>
 
@@ -540,7 +530,10 @@ $( "#checkoutBtn" ).click(function()
   
 <script>
 
-
+	$.post("/orderHistory", {})
+	.done(function(data){
+		$("#showHistoryTable").html(data);
+	});
 
 
 </script>

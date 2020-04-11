@@ -158,10 +158,20 @@ class DatabaseController extends AbstractController
 		//create a repository object and pass in the LoginRegister entity 
 		$repo = $this->getDoctrine()->getRepository(Orders::class);
 		
-		//checks if there is a match in the database for specified Username
+		//checks if there is a match in the database for specified Username and stores all the results in $orders as an array
 		$orders = $repo->findBy(['username' => "user"]);
 
+		// iterate through each order and store it as an object in order
+		foreach($orders as $order)
+		{
+			echo $order->getId();
+			echo $order->getOrderDetails();
+			echo $order->getDate();
+		}
+		
+		
 		return $this->render("orderHistory.html.twig", ['orders' => $orders]);
+		//return new Repsonse('');
 		
 	}
 	
