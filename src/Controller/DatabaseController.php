@@ -96,7 +96,7 @@ class DatabaseController extends AbstractController
 			
 			//execute the SQL to update DB using data from LoginRegister persist
 			$entityManager->flush();
-			return new Response('registered');
+			return new Response('successfully registered. Click OK to go to login screen'); //aka successfully registered
 		}
 		//pass back control to twig script tags and store message in data
 		return new Response('please try a different username');
@@ -129,7 +129,7 @@ class DatabaseController extends AbstractController
 		$Orders->setDeliveryAddress($addr);
 		$Orders->setDate(date("Y/m/d"));
 		$Orders->setStatus($status);
-		$Orders->setUsername("user");
+		$Orders->setUsername($user);
 		
 		
 		//prepare data to be used
@@ -140,7 +140,7 @@ class DatabaseController extends AbstractController
 		$entityManager->flush();	
 		
 		
-		return new Response($cart . $cost . $addr . $date . $status . $user );
+		return new Response('');
 	}
 	
 	
@@ -159,19 +159,10 @@ class DatabaseController extends AbstractController
 		$repo = $this->getDoctrine()->getRepository(Orders::class);
 		
 		//checks if there is a match in the database for specified Username and stores all the results in $orders as an array
-		$orders = $repo->findBy(['username' => "user"]);
+		$orders = $repo->findBy(['username' => $username]);
 
-		// iterate through each order and store it as an object in order
-		foreach($orders as $order)
-		{
-			echo $order->getId();
-			echo $order->getOrderDetails();
-			echo $order->getDate();
-		}
-		
-		
+		// render twig file containing the order history table template and pass in the orders array
 		return $this->render("orderHistory.html.twig", ['orders' => $orders]);
-		//return new Repsonse('');
 		
 	}
 	
@@ -217,6 +208,87 @@ class DatabaseController extends AbstractController
 		
 		// set the status field to complete 
 		$order->setStatus("complete");
+		
+		//prepare data to be used
+		$entityManager->persist($order);
+		
+		
+		//execute the SQL
+		$entityManager->flush();	
+		
+	   return new Response("order completed" );
+		
+	}
+	
+		/**
+	* @Route("/generateReport") methods("GET", "POST");
+	*/
+		public function generateReport()
+	{
+		// store data from webpage request
+		$request = Request::createFromGlobals();
+		
+		//get the variables passed in to the HTML login page
+		$d1 = $request->request->get('date1', 'none');
+		$d2 = $request->request->get('date2', 'none');
+		
+		$repo = $this->getDoctrine()->getRepository(Orders::class);
+		
+		// custom SQL function that was added to src/repository/OrdersRepository
+		$orders = $repo->findAllBetweenDates($d1, $d2);
+		
+		
+
+		// render twig file containing the order history table template and pass in the orders array
+		//return $this->render("orderHistory.html.twig", ['orders' => $orders]);
+		
+		return $this->render("reportTable.html.twig", ['orders' => $orders]);
+		
+	}
+	
+	
+			/**
+	* @Route("/showOrders") methods("GET", "POST");
+	*/
+	public function showAllOrders()
+	{
+		//create a repository object and pass in the LoginRegister entity 
+		$repo = $this->getDoctrine()->getRepository(Orders::class);
+		
+		//
+		$orders = $repo->findAll();
+		
+		//return var_dump($orders);
+
+		return $this->render("showOrdersTable.html.twig", ['orders' => $orders]);
+		
+		
+	}
+	
+			/**
+	* @Route("/cancelOrder") methods("GET", "POST");
+	*/
+	public function cancelOrder()
+	{
+		$request = Request::createFromGlobals();
+		
+		//get the variables passed in to the HTML Register page
+		$orderid = $request->request->get('cancelorder', 'none');
+
+		
+		// insert into DB using Doctrine Entities 
+		// create a Doctrine entity mangager
+		$entityManager = $this->getDoctrine()->getManager();
+		
+		
+		//create a repository object and pass in the LoginRegister entity 
+		$repo = $this->getDoctrine()->getRepository(Orders::class);
+		
+		//checks if there is a match in the database for specified order id
+		$order = $repo->findOneBy(['id' => $orderid]);
+		
+		// set the status field to complete 
+		$order->setStatus("cancelled");
 		
 		//prepare data to be used
 		$entityManager->persist($order);

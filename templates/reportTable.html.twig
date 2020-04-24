@@ -1,0 +1,10 @@
+<tr>
+	<th>Total Orders</th>
+	<th>Total Revenue</th>
+</tr>
+{% for order in orders %}
+<tr>
+     <td>{{ order.totOrders }}</td>
+     <td>{{ order.totRevenue}}</td>
+ </tr>
+    {% endfor %}

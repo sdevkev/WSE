@@ -11,27 +11,26 @@
      <td>{{ order.deliveryAddress }}</td>
      <td>{{ order.status }}</td>
      <!-- creates a button with the id of the order id-->
-     <td><button class="ui-btn ui-btn-inline" id ="{{order.id}}">mark as complete</button></td>
+     <td><button class="ui-btn ui-btn-inline" id ="{{order.id}}">cancel order</button></td>
  </tr>
    
 
  <script>
-
  	//call the click button on the id that matches the button clicked
     $("#{{order.id}}").click(function(){  
 
     	// store the id to be used the update the associated row in the DB
-    	var idToComplete = "{{order.id}}";
+    	var idToCancel = "{{order.id}}";
 
-    	$.post("/completeOrder", {completeorder:idToComplete})
+    	$.post("/cancelOrder", {cancelorder:idToCancel})
 		.done(function(data) {
 			});
 
 			// recall the active delivers controller
-			$.post("/activeDeliveries")
+			$.post("/showOrders")
 			.done(function(data)
 			{
-				$('#showActiveDeliveries').html(data); // inserts the html generated in twig file showActiveDeliveries.twig in table in #driver page
+				$('#showOrderstable').html(data); // inserts the html generated in twig file showActiveDeliveries.twig in table in #driver page
 	 		}); 
 
     });

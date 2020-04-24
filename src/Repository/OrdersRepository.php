@@ -47,4 +47,26 @@ class OrdersRepository extends ServiceEntityRepository
         ;
     }
     */
+	
+	
+	 /**
+     * @return Report[]
+     */
+    public function findAllBetweenDates($date1, $date2): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+			$sql  = '
+			
+				SELECT COUNT(id)"totOrders", SUM(cost)"totRevenue"  FROM orders
+				WHERE DATE BETWEEN  :first AND :second
+				';
+
+			$stmt = $conn->prepare($sql);
+			$stmt->execute(['first'=> $date1, 'second'=>$date2]);
+
+			// returns an array of arrays (i.e. a raw data set)
+			return $stmt->fetchAll();
+    }
+	
 }
