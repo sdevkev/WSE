@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 //Database controller to process request to the datebase for 
-//logging in and registering new user account
+//logging in and registering new user account and Retriving/Modifying database
 
 class DatabaseController extends AbstractController
 {
@@ -166,7 +166,7 @@ class DatabaseController extends AbstractController
 		
 	}
 	
-		/**
+	/**
 	* @Route("/activeDeliveries") methods("GET", "POST");
 	*/
 		public function activeDeliveries()
@@ -179,12 +179,13 @@ class DatabaseController extends AbstractController
 		//checks if there is a match in the database for specified Username
 		$orders = $repo->findBy(['status' => "waiting"]);
 
+		//render twig file containg table template for awaitingDeliverys and pass in $orders as the array
 		return $this->render("awaitingDelivery.html.twig", ['orders' => $orders]);
 		
 	}
 	
 	
-		/**
+	/**
 	* @Route("/completeOrder") methods("GET", "POST");
 	*/
 	public function completeOrder()
@@ -220,7 +221,7 @@ class DatabaseController extends AbstractController
 		
 	}
 	
-		/**
+	/**
 	* @Route("/generateReport") methods("GET", "POST");
 	*/
 		public function generateReport()
@@ -239,15 +240,13 @@ class DatabaseController extends AbstractController
 		
 		
 
-		// render twig file containing the order history table template and pass in the orders array
-		//return $this->render("orderHistory.html.twig", ['orders' => $orders]);
-		
+		// render twig file containing the order report table template and pass in the orders array	
 		return $this->render("reportTable.html.twig", ['orders' => $orders]);
 		
 	}
 	
 	
-			/**
+	/**
 	* @Route("/showOrders") methods("GET", "POST");
 	*/
 	public function showAllOrders()
@@ -258,14 +257,15 @@ class DatabaseController extends AbstractController
 		//
 		$orders = $repo->findAll();
 		
+		
 		//return var_dump($orders);
-
+		// render twig file containing the orders table template and pass in the orders array	
 		return $this->render("showOrdersTable.html.twig", ['orders' => $orders]);
 		
 		
 	}
 	
-			/**
+	/**
 	* @Route("/cancelOrder") methods("GET", "POST");
 	*/
 	public function cancelOrder()
@@ -287,17 +287,15 @@ class DatabaseController extends AbstractController
 		//checks if there is a match in the database for specified order id
 		$order = $repo->findOneBy(['id' => $orderid]);
 		
-		// set the status field to complete 
-		$order->setStatus("cancelled");
 		
-		//prepare data to be used
-		$entityManager->persist($order);
+		//prepare data to be deleted
+		$entityManager->remove($order);
 		
 		
 		//execute the SQL
 		$entityManager->flush();	
 		
-	   return new Response("order completed" );
+	   return new Response("order deleted" );
 		
 	}
 	

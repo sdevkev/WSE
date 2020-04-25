@@ -24,13 +24,14 @@
 
     	$.post("/cancelOrder", {cancelorder:idToCancel})
 		.done(function(data) {
+			alert("Order Deleted");
 			});
 
 			// recall the active delivers controller
 			$.post("/showOrders")
 			.done(function(data)
 			{
-				$('#showOrderstable').html(data); // inserts the html generated in twig file showActiveDeliveries.twig in table in #driver page
+				$('#showOrderstable').html(data); //show updated html tabel
 	 		}); 
 
     });

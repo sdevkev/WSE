@@ -7,12 +7,12 @@
 <div data-role="page" id="login">
 
 	<div data-role="header">
-		<h1>Welcome</h1>
+		<h1>Login</h1>
 	</div><!-- /header -->
 
                     <!-- main login fields -->
-	<div role="main" class="ui-content">
-	
+	<div role="main" class="ui-content" style="width: 40%; margin: 0 auto">
+
 	    Username<input type="text" id="loginUsername"></input>
         Password<input type="password" id="loginPassword"></input>
 		<button class="ui-btn ui-btn-inline" id ="loginbtn">Login</button> <!--inline to show sign up link on same line-->
@@ -20,7 +20,7 @@
 		
 	</div>
 
-</div><!-- /page login -->
+</div>
 
 <script>
 
@@ -52,13 +52,14 @@ $( "#loginbtn" ).click(function() {
 	{
 		window.location="/index#driver";
 
-		// if a drive logs in call the active delivers controller method to show actvie orders
+		// if a driver logs in call the active delivers controller method to show actvie orders
+		
 		$.post("/activeDeliveries")
 		.done(function(data)
 		{
 		$('#showActiveDeliveries').html(data); // inserts the html generated in twig file showActiveDeliveries.twig in table in #driver page
 	 	});
-
+		
 	}
 	else if(data == 'manager')
 	{
@@ -89,7 +90,7 @@ $( "#loginbtn" ).click(function() {
 		<h1>Register</h1>
 	</div><!-- /header -->
 
-<div role="main" class="ui-content">
+<div role="main" class="ui-content" style="width: 40%; margin: 0 auto">
 
 			Username <input type="text" name="username" id="username" value="">
 			Password <input type="password" name="pass" id="pass" value="">
@@ -98,6 +99,7 @@ $( "#loginbtn" ).click(function() {
 	        	<option value="manager">Manager</option>
 	        	<option value="driver">Driver</option>
 	    	</select>
+			<br>
 			<button class="ui-btn" id="Registerbtn">Submit</button>
 
 	</div><!-- /content -->
@@ -151,7 +153,7 @@ $( "#Registerbtn" ).click(function()
 		<h1>Customer</h1>
 	</div><!-- /header -->
 
-	<div role="main" class="ui-content">
+	<div role="main" class="ui-content" style="width: 40%; margin: 0 auto">
 		<a href="#OrderPage" class="ui-btn ui-shadow">New Order</a>
 		<button id="showOrderHistory" class="ui-btn ui-shadow">Order History</button>
 
@@ -160,13 +162,16 @@ $( "#Registerbtn" ).click(function()
   
 <script>
 
+
+// shows the order history in a table generated in another twig file when showOrderHistory button is clicked
 $( "#showOrderHistory" ).click(function() {
 
   window.location="/index#OrderHistory";
 
+// calls the orderhistory controller and passes logged in user name 
   $.post("/orderHistory", {user: loggedinUser})
 	.done(function(data){
-		$("#showHistoryTable").html(data);
+		$("#showHistoryTable").html(data); // insert the html table generated into showHistory table below
 	});
 		
 
@@ -217,15 +222,17 @@ $( "#showOrderHistory" ).click(function() {
 		<h1>Order</h1>
 	</div><!-- /header -->
 
-	<div role="main" class="ui-content">
+	<div role="main" class="ui-content" style="width: 40%; margin: 0 auto">
+
+<!-- table to display the Menu and used for tracking order items-->
 
 <table data-role="table" id="movie-table-custom" data-mode="reflow" class="ui-responsive">
   <thead>
     <tr>
       <th>Donut</th>
       <th>Price</th>
-      <th>QTY</th>
-      <th>Add</th>
+      <th style="width: 1%">QTY</th>
+      <th style="width: 1%">Add</th>
       <th>Remove</th>
     </tr>
   </thead>
@@ -297,7 +304,7 @@ $( "#showOrderHistory" ).click(function() {
   
 <script>
 
-
+// variable to store information realating to the order
 var cartContents = "";
 var totalCost = 0;
 
@@ -312,6 +319,8 @@ var icedQty = 0;
 var fantaQty = 0;
 var spriteQty = 0;
 
+
+// functions to add an item to the order
 function addItem(qty, elementID, cost)
 {
 
@@ -320,6 +329,8 @@ function addItem(qty, elementID, cost)
 	totalCost = totalCost + cost;
 }
 
+//function to remove an item form the order
+//will not go below zero
 function removeItem(qty, elementID, cost)
 {
 
@@ -332,7 +343,7 @@ function removeItem(qty, elementID, cost)
 }
 
 
-// adds 1 to to plain total
+// adds 1 to Plain donut total when + icon is clicked
 $( "#addPlain" ).click(function() 
 {
 	addItem(plainQty, "#plainTotal", 1);
@@ -350,7 +361,7 @@ $( "#minPlain" ).click(function()
 });
 
 
-// adds 1 to to plain total
+// adds 1 to choc donut total when + icon is clicked
 $( "#addChoc" ).click(function() 
 {
 	addItem(chocQty, "#chocTotal", 1);
@@ -383,7 +394,7 @@ $( "#minLemon" ).click(function()
 });
 
 
-// adds 1 to to plain total
+// adds 1 to total
 $( "#addSprinkle" ).click(function() 
 {
 	addItem(sprinkleQty, "#sprinkleTotal", 2);
@@ -400,7 +411,7 @@ $( "#minSprinkle" ).click(function()
 });
 
 
-// adds 1 to to plain total
+// adds 1  to total
 $( "#addJam" ).click(function() 
 {
 	addItem(jamQty, "#jamTotal", 2);
@@ -417,7 +428,7 @@ $( "#minJam" ).click(function()
 });
 
 
-// adds 1 to to plain total
+// adds to total
 $( "#addIced" ).click(function() 
 {
 	addItem(icedQty, "#icedTotal", 2);
@@ -434,7 +445,7 @@ $( "#minIced" ).click(function()
 });
 
 
-// adds 1 to to plain total
+// adds 1 to total
 $( "#addFanta" ).click(function() 
 {
 	addItem(fantaQty, "#fantaTotal", 1);
@@ -451,7 +462,7 @@ $( "#minFanta" ).click(function()
 });
 
 
-// adds 1 to to plain total
+// adds 1 to total
 $( "#addSprite" ).click(function() 
 {
 	addItem(spriteQty, "#spriteTotal", 1);
@@ -469,7 +480,7 @@ $( "#minSprite" ).click(function()
 
 
 
-// generate order
+// generate cart contents
 // will only add items that have a minimum of quantity 1
 $( "#OrderSubmitbtn" ).click(function() 
 {
@@ -528,21 +539,20 @@ $( "#OrderSubmitbtn" ).click(function()
 <div data-role="page" id="cart">
 
 <div data-role="header">
-		<h1>Checkout</h1>
+		<h2>Checkout</h2>
 	</div><!-- /header -->
 
-	<div role="main" class="ui-content">
-
+	<div role="main" class="ui-content" style="width: 40%; margin: 0 auto">
+		<h2>Order Details</h2>
 		<textarea disabled="disabled" cols="40" rows="8" name="textarea-10" id="Totalcart"></textarea>
 
 		<label for="nameInput">Name</label>
 		<input type="text" name="nameInput" id="nameInput" placeholder="" value="">
 		<label for="nameInput">Address</label>
-		<input type="text" name="addressInput" id="addressInput" placeholder="" value="">
-		<label for="instructionsInput">Speical Instructions</label>
-		<textarea cols="40" rows="8" name="textarea-10" id="textarea-10"></textarea>
-		<a href="" name = "button" class="ui-btn" id="checkoutBtn">Confirm Order</a>
-		<a href="#OrderPage" name = "button" class="ui-btn" id="editOrderBtn">Edit Order</a>
+		<input type="text" name="addressInput" id="addressInput" placeholder="" value="" style="width: 80%">
+		<button class="ui-btn ui-btn-inline" id="checkoutBtn" style="width: 40%">Confirm Order</button>
+		<button class="ui-btn ui-btn-inline" id="editOrderBtn" style="width: 40%">Edit Order</a>
+
 
 
 
@@ -554,6 +564,7 @@ $( "#editOrderBtn" ).click(function()
 {
 	// resets the cartcontents as the newly editied order will update it again.
 	cartContents = "";
+	window.location = "/index#OrderPage"
 
 });
 
@@ -568,7 +579,7 @@ $( "#checkoutBtn" ).click(function()
 		.done(function(data) 
 		{
 			// confirmation message and redirect
-			alert("Order confirm. Click Ok to go back to customer page");
+			alert("Order confirmed. Click Ok to go back to customer page");
 			 cartContents = "";
 
 			window.location = "/index#customer"
@@ -590,17 +601,19 @@ $( "#checkoutBtn" ).click(function()
 		<h1>Driver</h1>
 	</div><!-- /header -->
 
-	<div role="main" class="ui-content">
+	<div role="main" class="ui-content" style="width: 75%; margin: 0 auto">
 
 		<!-- div to house the weather details-->
 		<div id = "weatherdisplay">
-		Current Weather: <span id = "cweather"></span>
+		<strong>Current Weather: </strong><span id = "cweather"></span>
 		<br>
-		Current Temp: <span id = "ctemp"></span>&#8451;
+		<strong>Current Temp: </strong><span id = "ctemp"></span>&#8451;
 		</div>
+		<br>
+		<h2>Orders Awaiting Delivery</h2>
 
-		<table id = "showActiveDeliveries" data-role="table" data-mode="reflow" class="ui-responsive">
-			<!-- this table is generated by orderHistory.html.twig file -->
+		<table id = "showActiveDeliveries" data-role="table" data-mode="reflow" class="ui-responsive" >
+			<!-- this table is generated by awaitingDelivery.html.twig file -->
 		</table>
 
 
@@ -621,6 +634,8 @@ $('#ctemp').html(data.main.temp);
 
 });
 
+
+
 </script>
 
 <!-- ===============================end driver page========================================= -->
@@ -630,10 +645,10 @@ $('#ctemp').html(data.main.temp);
 <div data-role="page" id="manager">
 
 <div data-role="header">
-		<h1>Customer</h1>
+		<h1>Manager</h1>
 	</div><!-- /header -->
 
-	<div role="main" class="ui-content">
+	<div role="main" class="ui-content" style="width: 40%; margin: 0 auto">
 		<button id="reports" class="ui-btn ui-shadow">Reports</a>
 		<button id="cancelOrders" class="ui-btn ui-shadow">Cancel Orders</button>
 
@@ -676,27 +691,30 @@ $( "#cancelOrders" ).click(function() {
 		<h1>Manger</h1>
 	</div><!-- /header -->
 
-	<div role="main" class="ui-content">
+	<div role="main" class="ui-content" style="width: 40%; margin: 0 auto">
 
-		Start Date (Format DD/MM/YYYY)<input type="text" id="startDate"></input>
-        End Date(Format DD/MM/YYYY)<input type="text" id="endDate"></input>
+		Start Date (Format YYYY/MM/DD)<input type="text" id="startDate"></input>
+        End Date(Format YYYY/MM/DD)<input type="text" id="endDate"></input>
 		<button class="ui-btn ui-btn-inline" id ="genReport">Generate Report</button> 
+		<br>
 
 		<table id = "reportTable" data-role="table" data-mode="reflow" class="ui-responsive">
-			<!-- this table is generated by orderHistory.html.twig file -->
+			<!-- this table is generated by reportsTable.html.twig file -->
 		</table>
 
 	</div><!-- /content -->
 </div>
   
 <script>
+
+// used to call the controller to generate a report between two dates
     $("#genReport").click(function(){
     	var d1 = $("#startDate").val();
     	var d2 = $("#endDate").val();  
     	$.post("/generateReport", {date1:d1, date2:d2} )
     	.done(function(data)
     	{
-    		$('#reportTable').html(data);
+    		$('#reportTable').html(data);// uses the data returned to generate a table from another twig file
     	});
     	
 
@@ -706,17 +724,17 @@ $( "#cancelOrders" ).click(function() {
 <!-- ===============================end reports page========================================= -->
 
 
-<!-- ===============================reports page========================================= -->
+<!-- ===============================Order History/Cancel page========================================= -->
 <div data-role="page" id="cancelOrdersPage">
 
 <div data-role="header">
 		<h1>Manger</h1>
 	</div><!-- /header -->
 
-	<div role="main" class="ui-content">
-
+	<div role="main" class="ui-content"style="width: 75%; margin: 0 auto">
+		<h2>Order Data</h2>
 		<table id = "showOrderstable" data-role="table" data-mode="reflow" class="ui-responsive">
-			<!-- this table is generated by orderHistory.html.twig file -->
+			<!-- this table is generated by showOrders.html.twig file -->
 		</table>
 
 
@@ -730,7 +748,7 @@ $( "#cancelOrders" ).click(function() {
 
 </script>
 
-<!-- ===============================end reports page========================================= -->
+<!-- ===============================Order History/Cancel page========================================= -->
 
 </body>
 </html>
