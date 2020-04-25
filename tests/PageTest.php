@@ -35,4 +35,15 @@ class PageTest extends WebTestCase
 		$this->assertEquals(200, $client->getResponse()->getStatusCode());
 	}
 	
+	    public function testRegisterPage(){
+        $client = static::createClient();
+
+        $client->request('GET', '/index#driver');
+
+        $this->assertContains(
+            'order completed',
+            $client->getResponse()->getContent()
+        );
+    }
+	
 }

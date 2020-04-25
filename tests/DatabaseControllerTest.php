@@ -8,10 +8,12 @@ class DatabaseControllerTest extends TestCase
 {
 	public function testLogin()
 	{
+		$id=0;
 		$dbcontroller = new DatabaseController();
 		$result = $dbcontroller->Login();
+		$id = $result->getID();
 		
-		$this->assertEquals("user", $result);
+		$this->assertEquals(1, $id);
 	}
 	
 	
